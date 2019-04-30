@@ -2,6 +2,8 @@
 
 ## Overview
 
+You can watch the video here: https://youtu.be/O21OD-VJEv4
+
 This repository was tested with `Terraform v0.11.13`.
 
 The Terraform configuration in this repository will set up a GCE instance that's automatically configured to work with Stackdriver Logging.
