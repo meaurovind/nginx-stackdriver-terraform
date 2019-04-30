@@ -1,4 +1,4 @@
-# nginx-stackdriver
+# nginx-stackdriver-terraform
 
 ## Overview
 
