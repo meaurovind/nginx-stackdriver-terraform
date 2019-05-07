@@ -57,7 +57,6 @@ resource "google_bigquery_dataset" "default" {
   location = "US"
 }
 
-
 resource "google_logging_project_sink" "default" {
     name = "nginx-logs"
     destination = "bigquery.googleapis.com/projects/${var.project}/datasets/${google_bigquery_dataset.default.dataset_id}"
