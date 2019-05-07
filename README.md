@@ -3,6 +3,7 @@
 ## Overview
 
 You can watch the 1st video here: https://youtu.be/O21OD-VJEv4
+
 You can watch the 2nd video here: https://youtu.be/1N_jtFu2jZU
 
 This repository was tested with `Terraform v0.11.13`.
