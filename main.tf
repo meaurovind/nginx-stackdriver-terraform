@@ -1,24 +1,24 @@
 provider "google" {
-  credentials = "${file("account.json")}"
-  project     = "${var.project}"
-  region      = "${var.region}"
+  credentials = file("account.json")
+  project     = var.project
+  region      = var.region
 }
 
 data "template_file" "default" {
-  template = "${file("scripts/install.sh")}"
+  template = file("scripts/install.sh")
 }
 
 resource "google_compute_firewall" "default" {
- name    = "nginx-firewall"
- network = "default"
+  name    = "nginx-firewall"
+  network = "default"
 
- allow {
-   protocol = "tcp"
-   ports    = ["80"]
- }
+  allow {
+    protocol = "tcp"
+    ports    = ["80"]
+  }
 
- source_ranges = ["0.0.0.0/0"]
- target_tags = ["nginx"]
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["nginx"]
 }
 
 resource "google_compute_instance" "default" {
@@ -36,15 +36,17 @@ resource "google_compute_instance" "default" {
 
   // Local SSD disk
   scratch_disk {
+    interface = "SCSI"
   }
 
   network_interface {
     network = "default"
 
-    access_config {}
+    access_config {
+    }
   }
 
-  metadata_startup_script = "${data.template_file.default.rendered}"
+  metadata_startup_script = data.template_file.default.rendered
 
   service_account {
     scopes = ["logging-write"]
@@ -52,22 +54,23 @@ resource "google_compute_instance" "default" {
 }
 
 resource "google_bigquery_dataset" "default" {
-  dataset_id = "nginx_logs"
+  dataset_id  = "nginx_logs"
   description = "NGINX Access Logs"
-  location = "US"
+  location    = "US"
 }
 
 resource "google_logging_project_sink" "default" {
-    name = "nginx-logs"
-    destination = "bigquery.googleapis.com/projects/${var.project}/datasets/${google_bigquery_dataset.default.dataset_id}"
-    filter = "resource.type = gce_instance AND logName = projects/${var.project}/logs/nginx-access"
-    unique_writer_identity = true
+  name                   = "nginx-logs"
+  destination            = "bigquery.googleapis.com/projects/${var.project}/datasets/${google_bigquery_dataset.default.dataset_id}"
+  filter                 = "resource.type = gce_instance AND logName = projects/${var.project}/logs/nginx-access"
+  unique_writer_identity = true
 }
 
 resource "google_project_iam_binding" "default" {
   role = "roles/bigquery.dataEditor"
 
   members = [
-    "${google_logging_project_sink.default.writer_identity}",
+    google_logging_project_sink.default.writer_identity,
   ]
 }
+
