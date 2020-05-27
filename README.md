@@ -6,7 +6,7 @@ You can watch the 1st video here: https://youtu.be/O21OD-VJEv4
 
 You can watch the 2nd video here: https://youtu.be/1N_jtFu2jZU
 
-This repository was tested with `Terraform v0.11.13`.
+This repository was tested with `Terraform v0.12.25`.
 
 The Terraform configuration in this repository will set up a GCE instance that's automatically configured to work with Stackdriver Logging and a logging sink that forwards NGINX logs to BigQuery will also be created.
 
