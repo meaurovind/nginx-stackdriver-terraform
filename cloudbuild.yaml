@@ -8,15 +8,9 @@ steps:
       echo "***********************"
       echo "$BRANCH_NAME"
       echo "***********************"
+      - id: 'tf init'
+       name: 'hashicorp/terraform:0.11.14'
+       entrypoint: 'sh'
+       args:  terraform init
 
-    - name: Terraform Init
-      run: terraform init
 
-    - name: Terraform Format
-      run: terraform fmt -check
-
-    - name: Terraform Plan
-      run: terraform plan
-
-    - name: Terraform Apply
-      run: terraform apply -auto-approve  
