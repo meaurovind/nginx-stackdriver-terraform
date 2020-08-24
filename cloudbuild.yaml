@@ -1,13 +1,7 @@
-name: 'Terraform'
-
-on:
-  push:
-    branches:
-    - patch-1
-  pull_request:
 
 
-  terraform:
+
+ 
     name: 'Terraform'
     runs-on: ubuntu-latest
     steps:
