@@ -17,12 +17,6 @@ steps:
   - |
       terraform init 
    
-  - id: 'tf plan'
-  name: 'hashicorp/terraform:0.12.3'
-  entrypoint: 'sh'
-  args: 
-  - '-c'
-  - | 
-      terraform plan
+
       
  
