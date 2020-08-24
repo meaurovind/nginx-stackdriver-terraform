@@ -14,7 +14,7 @@ steps:
   args: 
   - '-c'
   - |
-      cd .docker
+      cd 
       ls -lrta
       terraform init 
       
