@@ -9,7 +9,7 @@ steps:
       echo "$BRANCH_NAME"
       echo "***********************"
   name: Terraform Init
-  run: terraform init
+   args: terraform init
 
 
       
