@@ -14,9 +14,9 @@ steps:
   args: 
   - '-c'
   - |
-      cd 
+      
       ls -lrta
-      terraform-0.11.14 init -upgrade
+      terraform-0.11.14 init 
       
  
 
