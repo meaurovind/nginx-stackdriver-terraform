@@ -16,5 +16,5 @@ steps:
   - '-c'
   - |
       
-        cd $BRANCH_NAME
+       
         terraform init
