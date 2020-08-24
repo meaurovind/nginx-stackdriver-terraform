@@ -1,14 +1,14 @@
 provider "google" {
   credentials = file("account.json")
-  project     = var.project
-  region      = var.region
+  project     = CI Pipeline
+  region      = us-central1
 }
 
 data "template_file" "default" {
   template = file("scripts/install.sh")
 }
 
-resource "google_compute_firewall" "default" {
+resource "default-allow-http" "default" {
   name    = "nginx-firewall"
   network = "default"
 
@@ -61,8 +61,8 @@ resource "google_bigquery_dataset" "default" {
 
 resource "google_logging_project_sink" "default" {
   name                   = "nginx-logs"
-  destination            = "bigquery.googleapis.com/projects/${var.project}/datasets/${google_bigquery_dataset.default.dataset_id}"
-  filter                 = "resource.type = gce_instance AND logName = projects/${var.project}/logs/nginx-access"
+  destination            = "bigquery.googleapis.com/projects/CI Pipeline/datasets/${google_bigquery_dataset.default.dataset_id}"
+  filter                 = "resource.type = gce_instance AND logName = projects/CI Pipeline/logs/nginx-access"
   unique_writer_identity = true
 }
 
