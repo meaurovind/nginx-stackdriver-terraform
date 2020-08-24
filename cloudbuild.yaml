@@ -14,19 +14,11 @@ steps:
   args: 
   - '-c'
   - |
-      cd $WORKSPACE
+      cd .docker
       ls -lrta
       terraform init 
       
-   - id: 'tf apply'    
-  name: 'hashicorp/terraform:0.11.14'
-  entrypoint: 'sh'
-  args: 
-  - '-c'
-   - |
-      cd $WORKSPACE
-      ls -lrta
-      terraform apply
+ 
 
 
       
