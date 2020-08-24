@@ -16,6 +16,7 @@ steps:
   - '-c'
   - |
       terraform init 
+      terraform plan
    
 
       
