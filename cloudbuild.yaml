@@ -13,8 +13,8 @@ steps:
   name: 'terraform init'
   entrypoint: 'sh'
   args: 
-  - '-c'
-  - |
+  
+  - |  terraform init
       
        
-        terraform init
+       
