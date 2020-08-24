@@ -8,15 +8,15 @@ steps:
       echo "***********************"
       echo "$BRANCH_NAME"
       echo "***********************"
-  - id: 'tf install'
-  name: 'terraform install'
+  - id: 'tf init'
+  name: 'terraform init'
   entrypoint: 'sh'
   args: 
   - '-c'
   - |
       
       ls -lrta
-      terraform -install-autocomplete
+      terraform init
       
  
 
