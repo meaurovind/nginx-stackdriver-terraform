@@ -16,7 +16,7 @@ steps:
   - |
       cd 
       ls -lrta
-      terraform init -upgrade
+      terraform-0.11.14 init -upgrade
       
  
 
