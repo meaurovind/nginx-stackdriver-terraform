@@ -14,7 +14,8 @@ steps:
   args: 
   - '-c'
   - |
-      cd patch-1
+      cd $WORKSPACE
+      ls -lrta
       terraform init 
 
 
