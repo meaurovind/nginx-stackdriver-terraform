@@ -6,7 +6,7 @@ on:
     - patch-1
   pull_request:
 
-jobs:
+
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
