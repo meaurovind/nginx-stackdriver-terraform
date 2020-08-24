@@ -1,7 +1,7 @@
 provider "google" {
   credentials = file("account.json")
-  project     = CI Pipeline
-  region      = us-central1
+  project     = "CI Pipeline"
+  region      = "us-central1"
 }
 
 data "template_file" "default" {
