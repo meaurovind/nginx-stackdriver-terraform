@@ -1,5 +1,5 @@
 variable "project" {
-  default = "optimum-spring-238818"
+  default = "CI Pipeline"
 }
 
 variable "region" {
