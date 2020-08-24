@@ -1,6 +1,7 @@
 provider "google" {
   credentials = file("account.json")
   project     = CI Pipeline
+  region  = "us-central1"
   
 }
 
