@@ -15,11 +15,5 @@ steps:
   args: 
   - '-c'
   - |
-      terraform init -upgrade 
-  id: 'tf apply'
-  name: 'hashicorp/terraform:0.12.3'
-  entrypoint: 'sh'
-  args: 
-  - '-c'
-  - |
-        terraform apply -auto-approve
+      terraform init 
+ 
