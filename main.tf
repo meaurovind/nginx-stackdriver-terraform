@@ -17,7 +17,7 @@ resource "google_logging_folder_sink" "my-sink" {
 }
 
 resource "google_storage_bucket" "log-bucket" {
-  name = "folder-loggingnew-bucket"
+  name = "folder-loggingnewn-bucket"
 }
 
 resource "google_project_iam_binding" "log-writer" {
