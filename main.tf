@@ -27,5 +27,9 @@ resource "google_project_iam_binding" "log-writer" {
     google_logging_folder_sink.my-sink.writer_identity,
   ]
 }
-
+resource "google_folder" "my-folder" {
+  display_name = "My folder"
+  parent       = "organizations/0"
+  
+}
 
