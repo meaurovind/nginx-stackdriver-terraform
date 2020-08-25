@@ -27,9 +27,19 @@ resource "google_project_iam_binding" "log-writer" {
     google_logging_folder_sink.my-sink.writer_identity,
   ]
 }
-resource "google_folder" "my-folder" {
-  display_name = "My folder"
-  parent       = "organizations/0"
-  
+resource "google_logging_project_sink" "default" {
+  name                   = "nginx-logs"
+  destination            = "bigquery.googleapis.com/projects/${var.project}/datasets/${google_bigquery_dataset.default.dataset_id}"
+  filter                 = "resource.type = gce_instance AND logName = projects/${var.project}/logs/nginx-access"
+  unique_writer_identity = true
 }
+
+resource "google_project_iam_binding" "default" {
+  role = "roles/bigquery.dataEditor"
+
+  members = [
+    google_logging_project_sink.default.writer_identity,
+  ]
+}
+
 
