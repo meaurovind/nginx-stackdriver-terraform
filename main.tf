@@ -9,17 +9,25 @@ data "template_file" "default" {
 }
 
 resource "google_compute_firewall" "default" {
-  name    = "nginx-firewall"
-  network = "default"
+  name    = "test-firewall"
+  network = google_compute_network.default.name
+
+  allow {
+    protocol = "icmp"
+  }
 
   allow {
     protocol = "tcp"
-    ports    = ["80"]
+    ports    = ["80", "8080", "1000-2000"]
   }
 
-  source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["nginx"]
+  source_tags = ["web"]
 }
+
+resource "google_compute_network" "default" {
+  name = "test-network"
+}
+
 
 resource "google_compute_instance" "default" {
   name         = "nginx"
