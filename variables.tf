@@ -1,5 +1,5 @@
 variable "project" {
-  default = "ci-pipeline-276501"
+  default = "CI Pipeline "
 }
 
 variable "region" {
