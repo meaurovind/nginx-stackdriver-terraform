@@ -4,7 +4,9 @@ provider "google" {
   region      = var.region
 }
 
-
+data "template_file" "default" {
+  template = file("scripts/install.sh")
+}
 
 resource "google_compute_firewall" "default" {
   name    = "nginx-firewall"
@@ -36,7 +38,6 @@ resource "google_compute_instance" "default" {
   scratch_disk {
     interface = "SCSI"
   }
-  
 
   network_interface {
     network = "default"
@@ -44,12 +45,6 @@ resource "google_compute_instance" "default" {
     access_config {
     }
   }
-  data “template_file” “default” {
-  template = “${file(“/path/to/your/file”)}”
-  vars = {
-    address = “some value“
-  }
-}
 
   metadata_startup_script = data.template_file.default.rendered
 
