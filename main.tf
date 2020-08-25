@@ -1,3 +1,9 @@
+provider "google" {
+  credentials = file("account.json")
+  project     = var.project
+  region      = var.region
+}
+
 resource "google_logging_folder_sink" "my-sink" {
   name   = "my-sink"
   folder = google_folder.my-folder.name
