@@ -8,7 +8,7 @@ data "template_file" "default" {
   template = file("scripts/install.sh")
 }
 
-resource "default-allow-https" "default" {
+resource "google_compute_firewall" "default" {
   name    = "nginx-firewall"
   network = "default"
 
