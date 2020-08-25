@@ -2,7 +2,7 @@ provider "google" {
   credentials = file("account.json")
   project     = var.project
   region      = var.region
-  projectID   = var.projectID
+ 
 }
 
 resource "google_logging_folder_sink" "my-sink" {
