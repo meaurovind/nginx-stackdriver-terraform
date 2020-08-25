@@ -4,9 +4,7 @@ provider "google" {
   region      = var.region
 }
 
-data "template_file" "default" {
-  template = file("scripts/install.sh")
-}
+
 
 resource "google_compute_firewall" "default" {
   name    = "nginx-firewall"
