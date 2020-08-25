@@ -28,7 +28,4 @@ resource "google_project_iam_binding" "log-writer" {
   ]
 }
 
-resource "google_folder" "my-folder" {
-  display_name = "My folder"
-  
-}
+
