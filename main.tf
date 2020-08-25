@@ -62,7 +62,7 @@ resource "google_compute_instance" "default" {
 }
 
 resource "google_bigquery_dataset" "default" {
-  dataset_id  = "nginx_logs"
+  dataset_id  = "nginx_log"
   description = "NGINX Access Logs"
   location    = "US"
 }
