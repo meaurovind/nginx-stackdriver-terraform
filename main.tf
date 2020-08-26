@@ -1,12 +1,12 @@
 provider "google" {
   credentials = file("account.json") 
+  client_id = "1091869076154-er3uo2763i0pm05uipb8abf2h616877g.apps.googleusercontent.com"
   project     = var.project
   region      = var.region
 }
 
 resource "google_bigquery_dataset" "default" {
   dataset_id  = "CIML_logs"
-  client_id = 1091869076154-er3uo2763i0pm05uipb8abf2h616877g.apps.googleusercontent.com
   description = "NGINX Access Logs"
   location    = "US"
 }
