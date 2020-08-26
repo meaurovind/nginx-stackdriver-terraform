@@ -31,11 +31,11 @@ resource "google_compute_network" "default" {
 
 
 resource "google_compute_instance" "default" {
-  name         = "jenkins"
+  name         = "nginx"
   machine_type = "n1-standard-1"
   zone         = "us-central1-a"
 
-  tags = ["jenkins"]
+  tags = ["nginx"]
 
   boot_disk {
     initialize_params {
@@ -63,15 +63,15 @@ resource "google_compute_instance" "default" {
 }
 
 resource "google_bigquery_dataset" "default" {
-  dataset_id  = "jenkins_log"
-  description = "Jenkins Access Logs"
+  dataset_id  = "nginx_log"
+  description = "Nginx Access Logs"
   location    = "US"
 }
 
 resource "google_logging_project_sink" "default" {
-  name                   = "jenkins-logs"
+  name                   = "nginx-logs"
   destination            = "bigquery.googleapis.com/projects/${var.project}/datasets/${google_bigquery_dataset.default.dataset_id}"
-  filter                 = "resource.type = gce_instance AND logName = projects/${var.project}/logs/jenkins-access"
+  filter                 = "resource.type = gce_instance AND logName = projects/${var.project}/logs/nginx-access"
   unique_writer_identity = true
 }
 
