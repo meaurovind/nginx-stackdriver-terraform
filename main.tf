@@ -5,7 +5,7 @@ provider "google" {
 }
 
 resource "google_bigquery_dataset" "default" {
-  credentials = file("access.json") 
+  oauth_client_id = file("access.json") 
   dataset_id  = "CIML_logs"
   description = "NGINX Access Logs"
   location    = "US"
