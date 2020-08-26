@@ -5,9 +5,17 @@ provider "google" {
   region      = var.region
 }
 
-project = "${google_project.project.project_id}"
-filter = "resource.type = project" AND logName = projects/${var.project}/logs/nginx-access"
-  
+resource "google_bigquery_dataset" "default" {
+  dataset_id  = "CIM_logs"
+  description = "NGINX Access Logs"
+  location    = "US"
+}
+
+resource "google_logging_project_sink" "default" {
+  name                   = "CISink-logs"
+  destination            = "bigquery.googleapis.com/projects/${var.project}/datasets/${google_bigquery_dataset.default.dataset_id}"
+  filter                 = "resource.type = gce_instance AND logName = projects/${var.project}/logs/brew-access"
+  unique_writer_identity = true
 }
 
 resource "google_project_iam_binding" "default" {
