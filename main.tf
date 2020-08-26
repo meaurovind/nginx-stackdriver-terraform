@@ -1,5 +1,5 @@
 provider "google" {
-  credentials = file("access.json") 
+  credentials = file("account.json") 
   project     = var.project
   region      = var.region
 }
