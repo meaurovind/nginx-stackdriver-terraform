@@ -10,7 +10,7 @@ data "template_file" "default" {
 }
 
 resource "google_compute_firewall" "default" {
-  name    = "test-firewall"
+  name    = "nginixnew-firewall"
   network = google_compute_network.default.name
 
   allow {
@@ -26,12 +26,12 @@ resource "google_compute_firewall" "default" {
 }
 
 resource "google_compute_network" "default" {
-  name = "test-network"
+  name = "niginxnew-network"
 }
 
 
 resource "google_compute_instance" "default" {
-  name         = "nginx"
+  name         = "nginxnew"
   machine_type = "n1-standard-1"
   zone         = "us-central1-a"
 
@@ -63,13 +63,13 @@ resource "google_compute_instance" "default" {
 }
 
 resource "google_bigquery_dataset" "default" {
-  dataset_id  = "nginx_log"
+  dataset_id  = "nginxnew_log"
   description = "Nginx Access Logs"
   location    = "US"
 }
 
 resource "google_logging_project_sink" "default" {
-  name                   = "nginx-logs"
+  name                   = "nginxnew-logs"
   destination            = "bigquery.googleapis.com/projects/${var.project}/datasets/${google_bigquery_dataset.default.dataset_id}"
   filter                 = "resource.type = gce_instance AND logName = projects/${var.project}/logs/nginx-access"
   unique_writer_identity = true
