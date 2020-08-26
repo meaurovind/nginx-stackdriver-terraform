@@ -14,6 +14,7 @@ resource "google_logging_project_sink" "default" {
   name                   = "CISinkl-logs"
   destination            = "bigquery.googleapis.com/projects/${var.project}/datasets/${google_bigquery_dataset.default.dataset_id}"
   filter                 = "resource.type = gce_instance AND logName = projects/${var.project}/logs/brewsim-access"
+  unique_writer_identity = "true"
   
 }
 
