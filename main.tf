@@ -6,9 +6,9 @@
 }
 
 
-resource "google_bigquery_dataset" "ProjectLogging" {
-    dataset_id = "ProjectLogging"
-    friendly_name = "ProjectLogging"
+resource "google_bigquery_dataset" "ProjectLoggings" {
+    dataset_id = "ProjectLoggings"
+    friendly_name = "ProjectLoggings"
     location = "US"
     project = var.project
 
@@ -20,11 +20,11 @@ resource "google_bigquery_dataset" "ProjectLogging" {
 }
 
 resource "google_logging_project_sink" "ProjectSink" {
-    name = "ProjectLogging"
+    name = "ProjectLoggings"
     destination = "bigquery.googleapis.com/projects/var.project/datasets/instance-activity"
     project = var.project
     filter = "resource.type = project"
-    depends_on = ["google_bigquery_dataset.ProjectLogging"]
+    depends_on = ["google_bigquery_dataset.ProjectLoggings"]
     unique_writer_identity = true
 }
 
