@@ -6,38 +6,44 @@
 }
 
 
-resource "google_bigquery_dataset" "ProjectLoggings" {
-    dataset_id = "ProjectLoggings"
-    friendly_name = "ProjectLoggings"
-    location = "US"
-    project = var.project
+resource "google_bigquery_dataset" "dataset" {
+  dataset_id                  = "project_loggings"
+  friendly_name               = "test"
+  description                 = "This is a test description"
+  location                    = "US"
+  default_table_expiration_ms = 3600000
 
+  labels = {
+    env = "default"
+  }
 
-    access = [
-      {  role = "WRITER"
-        user_by_email = "${google_logging_project_sink.ProjectSink.writer_identity}"
-   ] }
+  access {
+    role          = "OWNER"
+    user_by_email = google_service_account.bqowner.email
+  }
+
+  access {
+    role   = "READER"
+    domain = "hashicorp.com"
+  }
 }
 
-resource "google_logging_project_sink" "ProjectSink" {
-    name = "ProjectLoggings"
-    destination = "bigquery.googleapis.com/projects/var.project/datasets/instance-activity"
-    project = var.project
+resource "google_service_account" "bqowner" {
+  account_id = "bqowner"
+}
+resource "google_project_service" "enable_destination_api" {
+  project     = var.project
+  service     = "bigquery.googleapis.com"
+  disable_on_destroy = false
+}
+resource "google_logging_project_sink" "projectsink" {
+    name = "projectsink"
+    destination= "bigquery.googleapis.com/projects/${var.project}/datasets/instance-activity"
+    project = google_project_service.enable_destination_api.project
     filter = "resource.type = project"
-    depends_on = ["google_bigquery_dataset.ProjectLoggings"]
     unique_writer_identity = true
-}
-
-
-resource "google_logging_project_sink" "my-sink" {
-  name = "my-pubsub-instance-sink"
-
-  # Can export to pubsub, cloud storage, or bigquery
-  destination = "pubsub.googleapis.com/projects/my-project/topics/instance-activity"
-
-  # Log all WARN or higher severity messages relating to instances
-  filter = "resource.type = gce_instance AND severity >= WARN"
-
-  # Use a unique writer (creates a unique service account used for writing)
-  unique_writer_identity = true
-}
+ }
+ 
+ 
+ 
+ 
