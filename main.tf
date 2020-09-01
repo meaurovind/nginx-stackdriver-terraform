@@ -42,3 +42,4 @@ resource "google_logging_project_sink" "projectsink" {
     project = google_project_service.enable_destination_api.project
     filter = "resource.type = project"
     unique_writer_identity = true
+ }
