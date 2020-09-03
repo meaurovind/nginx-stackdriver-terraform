@@ -2,7 +2,7 @@
   credentials = file("account.json")
   organization_id = var.organization.id
   project     = var.project
-  region      = var.region
+  
 
 }
 
