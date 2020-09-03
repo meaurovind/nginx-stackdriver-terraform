@@ -9,8 +9,9 @@
 resource "google_bigquery_dataset" "dataset" {
   dataset_id                  = "project_loggings"
   friendly_name               = "test"
-  description                 = "This is a test description"
-  location                    = "US"
+    
+description                 = "This is a test description"
+   location                    = "US"
   default_table_expiration_ms = 3600000
 
   labels = {
@@ -38,8 +39,15 @@ resource "google_project_service" "enable_destination_api" {
 }
 resource "google_logging_project_sink" "projectsink" {
     name = "projectsink"
-    destination= "bigquery.googleapis.com/projects/${var.project}/datasets/instance-activity"
+    destination = "bigquery.googleapis.com/projects/${var.project}/datasets/${google_bigquery_dataset.dataset.dataset_id}"
     project = google_project_service.enable_destination_api.project
-    filter = "resource.type = project"
+    filter = "resource.type = project AND logName = projects/${var.project}/new_logs"
     unique_writer_identity = true
  }
+
+resource "google_project_iam_binding" "log-writer-bigquery" {
+  role = "roles/bigquery.dataEditor"
+  members = [
+    google_logging_project_sink.projectsink.writer_identity,
+  ]
+}
