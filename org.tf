@@ -1,7 +1,7 @@
  provider "google" {
   credentials = file("account.json")
-  
-  project     = var.project(org_id)
+  organization_id = var.organization.id
+  project     = var.project
   region      = var.region
 
 }
@@ -69,7 +69,7 @@ resource "google_storage_bucket" "log-bucket" {
 resource "google_project_iam_member" "log-writer" {
   role = "roles/storage.objectCreator"
 
-  member = google_logging_organization_sink.my-sink.writer_identity
+  member = google_logging_organization_sink.org-sink.writer_identity
 }
 
 
